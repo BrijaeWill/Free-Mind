@@ -4,7 +4,7 @@ import cors from "cors";
 import userRoutes from "./routes/userRoutes.js";
 
 const app = express();
-
+const port = process.env.PORT || 3001; // Use the PORT from .env, fallback to 3001
 
 //middleware
 app.use(express.json());
@@ -17,7 +17,7 @@ app.get("/", (_req, res) => {
 // Routes
 app.use("/api/users", userRoutes);
 
-app.listen(3001,() =>{
-    connectDB();
-    console.log("Server start at http://localhost:3001 hello");
-})
+
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});
