@@ -41,7 +41,7 @@ router.put("/:id",authMiddleware, async (req,res)=>{
             {new:true}
         );
         if(!updatedJournal) return res.status(404).json({message: "Journal not found"});
-        res,json(updatedJournal);
+        res.json(updatedJournal);
     }catch(error){
         res.status(500).json({message:"Server error",error});
     }
@@ -55,6 +55,7 @@ router.delete("/:id",authMiddleware, async (req,res)=>{
             user:req.user.userId,
         });
         if(!deletedJournal) return res.status(404).json({message:"Journal not found"});
+        res.status(200).json({message:'Journal removed'});
     }catch (error){
         res.status(500).json({message:"Server error",error});
     }
