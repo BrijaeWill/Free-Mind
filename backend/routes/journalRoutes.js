@@ -32,7 +32,7 @@ router.get("/",authMiddleware,async (req,res)=>{
 });
 
 //update Journals
-router.put("/",authMiddleware, async (req,res)=>{
+router.put("/:id",authMiddleware, async (req,res)=>{
     try{
         const {title,content}=req.body;
         const updatedJournal = await Journal.findOneAndUpdate(
