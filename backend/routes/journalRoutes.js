@@ -1,5 +1,5 @@
 import express from "express";
-import Journal from "../models/journal";
+import Journal from "../models/journal.js";
 import authMiddleware from "../middleware//authMiddleware.js";
 const router = express.Router();
 
