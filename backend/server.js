@@ -2,6 +2,7 @@ import express from 'express';
 import {connectDB} from './config/connection.js';
 import cors from "cors";
 import userRoutes from "./routes/userRoutes.js";
+import journalRoutes from "./routes/journalRoutes.js";
 
 const app = express();
 const port = process.env.PORT || 3001; // Use the PORT from .env, fallback to 3001
@@ -16,8 +17,10 @@ app.get("/", (_req, res) => {
 });
 // Routes
 app.use("/api/users", userRoutes);
+app.use("/api/journals",journalRoutes);
 
 
 app.listen(port, () => {
+  connectDB();
   console.log(`Server running at http://localhost:${port}`);
 });
