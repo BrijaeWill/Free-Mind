@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Updated for React Router v6
 import { loginUser } from '../api/api'; // Ensure this path is correct
 
+
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -51,10 +52,14 @@ const Login: React.FC = () => {
             <button className="btn btn-primary w-100" onClick={handleLogin}>
               Login
             </button>
+            <p>
+        Don't have an account?{" "}
+        <button onClick={() => navigate("/register")}>Register</button>
+      </p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
   );
 };
 
