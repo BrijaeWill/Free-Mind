@@ -44,9 +44,6 @@ router.post("/login", async (req, res) => {
 
   router.post("/logout", authMiddleware, async (req, res) => {
     try {
-      const token = req.header("Authorization")?.split(" ")[1];
-      if (!token) return res.status(401).json({ message: "Unauthorized" });
-  
       // Save token to blacklist
       await blacklistedToken.create({ token });
   
