@@ -2,6 +2,8 @@ import express from "express";
 import User from "../models/User.js";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import { blacklistedToken } from "../models/Blacklist.js";
+import authMiddleware from "../middleware/authMiddleware.js";
 
 dotenv.config();
 const router = express.Router();
@@ -35,6 +37,20 @@ router.post("/login", async (req, res) => {
   
       const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
       res.status(200).json({ token, user: { username: user.username, email: user.email } });
+    } catch (error) {
+      res.status(500).json({ message: "Server error", error });
+    }
+  });
+
+  router.post("/logout", authMiddleware, async (req, res) => {
+    try {
+      const token = req.header("Authorization")?.split(" ")[1];
+      if (!token) return res.status(401).json({ message: "Unauthorized" });
+  
+      // Save token to blacklist
+      await blacklistedToken.create({ token });
+  
+      res.json({ message: "Logged out successfully" });
     } catch (error) {
       res.status(500).json({ message: "Server error", error });
     }
