@@ -9,7 +9,7 @@ const port = process.env.PORT || 3001; // Use the PORT from .env, fallback to 30
 
 //middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors({origin:"https://free-mind-2.onrender.com"}));
 
 //default route
 app.get("/", (_req, res) => {
