@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken';
-import { BlacklistedToken } from "../models/BlacklistedToken";
 const authMiddleware = (req,res, next) =>{
     const token = req.header("Authorization");
 
