@@ -2,8 +2,6 @@ import express from "express";
 import User from "../models/User.js";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import { blacklistedToken } from "../models/Blacklist.js";
-import authMiddleware from "../middleware/authMiddleware.js";
 
 dotenv.config();
 const router = express.Router();
