@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { registerUser } from "../api/api.ts";
 import { useNavigate } from "react-router-dom";
+import './register.css'
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const Register: React.FC = () => {
   const navigate = useNavigate();
@@ -25,61 +27,56 @@ const Register: React.FC = () => {
   };
 
   return (
-    <div className="container mt-5">
-      <div className="row justify-content-center">
-        <div className="col-md-4">
-          <div className="card p-4 shadow-sm">
-            <h2 className="text-center mb-4">Register</h2>
-            {error && <div className="alert alert-danger">{error}</div>}
+    <div className="register-container">
+      <div className="card shadow-sm p-4">
+        <h2 className="text-center mb-4">Register</h2>
+        {error && <div className="alert alert-danger">{error}</div>}
 
-            <div className="mb-3">
-              <label className="form-label">Username</label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Enter username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-            </div>
-
-            <div className="mb-3">
-              <label className="form-label">Email</label>
-              <input
-                type="email"
-                className="form-control"
-                placeholder="Enter email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-
-            <div className="mb-3">
-              <label className="form-label">Password</label>
-              <input
-                type="password"
-                className="form-control"
-                placeholder="Enter password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-
-            <button className="btn btn-primary w-100" onClick={handleRegister}>
-              Register
-            </button>
-
-            <p className="text-center mt-3">
-              Already have an account?{" "}
-              <button
-                className="btn btn-link"
-                onClick={() => navigate("/login")}
-              >
-                Login
-              </button>
-            </p>
+        <form>
+          <div className="mb-3">
+            <label className="form-label">Username</label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Enter username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
           </div>
-        </div>
+
+          <div className="mb-3">
+            <label className="form-label">Email</label>
+            <input
+              type="email"
+              className="form-control"
+              placeholder="Enter email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label">Password</label>
+            <input
+              type="password"
+              className="form-control"
+              placeholder="Enter password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+
+          <button type="button" className="btn btn-primary w-100" onClick={handleRegister}>
+            Register
+          </button>
+        </form>
+
+        <p className="text-center mt-3">
+          Already have an account?{" "}
+          <button className="btn btn-link p-0" onClick={() => navigate("/")}>
+            Login
+          </button>
+        </p>
       </div>
     </div>
   );

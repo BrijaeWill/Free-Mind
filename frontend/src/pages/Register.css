@@ -1,0 +1,50 @@
+/* Reset default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Center the registration form */
+  html, body {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f9fa; /* Light gray background */
+    overflow: hidden; /* Prevent scrolling */
+  }
+  
+  /* Register container styling */
+  .register-container {
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  /* Card styling */
+  .card {
+    width: 100%;
+    max-width: 450px;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Form styling */
+  .form-control {
+    font-size: 1.2rem;
+    padding: 12px;
+  }
+  
+  /* Button styling */
+  .btn-primary {
+    font-size: 1.2rem;
+    padding: 12px;
+    border-radius: 5px;
+  }
+  
+  /* Enlarge register button */
+  .btn-link {
+    font-size: 1.1rem;
+  }
+  
