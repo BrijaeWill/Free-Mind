@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { blacklistedToken } from '../models/Blacklist';
+import { blacklistedToken } from '../models/Blacklist.js';
 const authMiddleware = async (req,res, next) =>{
     const authHeader = req.header("Authorization");
     const token = authHeader?.startsWith("Bearer ") ? authHeader.split(" ")[1] : authHeader; 
