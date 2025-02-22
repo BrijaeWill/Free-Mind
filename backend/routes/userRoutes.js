@@ -42,14 +42,5 @@ router.post("/login", async (req, res) => {
     }
   });
 
-  router.post("/logout", authMiddleware, async (req, res) => {
-    try {
-      // Save token to blacklist
-      await blacklistedToken.create({ token });
-  
-      res.json({ message: "Logged out successfully" });
-    } catch (error) {
-      res.status(500).json({ message: "Server error", error });
-    }
-  });
+
   export default router;
