@@ -1,4 +1,4 @@
-const API_URL = 'https://free-mind-2.onrender.com';
+const API_URL = 'https://free-mind-2.onrender.com/api';
 
 // Register User
 export const registerUser = async (userData: { username: string; email: string; password: string }) => {
