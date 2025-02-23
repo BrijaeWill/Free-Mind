@@ -15,11 +15,10 @@ const Register: React.FC = () => {
     try {
       const response = await registerUser({ username, email, password });
 
-      if (response.token) {
-        localStorage.setItem("token", response.token);
+      if (response.message === "User registered successfully") {
         navigate("/login");
       } else {
-        setError("Registration failed");
+        setError(response.message || "Registration failed");
       }
     } catch (error) {
       setError("An error occurred during registration");
