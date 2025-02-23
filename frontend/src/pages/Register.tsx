@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { registerUser } from "../api/api.ts";
 import { useNavigate } from "react-router-dom";
-import './register.css'
 import "bootstrap/dist/css/bootstrap.min.css";
+import './register.css'
+
+
 
 const Register: React.FC = () => {
   const navigate = useNavigate();
@@ -16,7 +18,7 @@ const Register: React.FC = () => {
       const response = await registerUser({ username, email, password });
 
       if (response.message === "User registered successfully") {
-        navigate("/login");
+        navigate("/");
       } else {
         setError(response.message || "Registration failed");
       }

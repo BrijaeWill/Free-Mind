@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../api/api";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import "./login.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");

@@ -1,55 +1,69 @@
-/* Reset default browser styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  /* Prevent scrolling */
-  html, body {
-    height: 100%;
-    overflow: hidden; /* Prevents scrolling */
+
+/* Apply background to the entire page */
+ html,body {
+    height: 100%; /* Ensure full height of the page */
+    width: 100%;  /* Ensure full width of the page */
+    margin: 0;    /* Remove default margin */
+    padding: 0;   /* Remove default padding */
+    display: flex; /* Flexbox to center content */
+    background-color: #6580718c; /* Soft sage green */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
     font-family: 'Arial', sans-serif;
-    background-color: #f3f5f8; /* Light gray background */
+}
+
+/* Set background color for the body */
+body {
+    width: 100%; /* Make sure the body takes full width */
+}
+
+/* Centered login form and card */
+.login-container {
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  
-/* Center the login form vertically and horizontally */
-.login-container {
-    width: 100%;
-    max-width: 400px;
-    background: white;
+    height: 100%; /* Take up full height of the body */
+    width: 100%; /* Ensure it stretches across */
+}
+
+/* Styling for the login card */
+.login-card {
+    background-color: #FAF9F6; /* Off-white for soft contrast */
     padding: 2rem;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Adjust the card size */
-  .login-card {
     width: 100%;
-    max-width: 400px; /* Keeps form at a readable width */
-    padding: 2rem;
-    border-radius: 10px;
-    background: white;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Improve input styling */
-  .form-control {
-    font-size: 1rem;
-    padding: 10px;
-  }
-  
-  /* Improve button styling */
-  .btn-primary {
-    font-size: 1rem;
-    padding: 10px;
-    border-radius: 5px;
-    width: 100%;
-  }
-  
-  .btn-link {
-    font-size: 1rem;
-  }
+    max-width: 400px; /* Constrain width of the card */
+}
+
+/* Other form and button styles */
+.form-control {
+  font-size: 1rem;
+  padding: 10px;
+  border: 1px solid #738290;
+  border-radius: 5px;
+  background-color: #F5F1ED;
+  color: #3D405B;
+  width: 100%;
+}
+
+.btn-primary {
+  background-color: #C2A878;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  padding: 10px;
+  width: 100%;
+}
+
+.btn-primary:hover {
+  background-color: #A68D6A;
+}
+
+.btn-link {
+  color: #3D405B;
+}
+
+.btn-link:hover {
+  text-decoration: underline;
+}

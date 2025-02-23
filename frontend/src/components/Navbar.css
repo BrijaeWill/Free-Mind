@@ -1,0 +1,63 @@
+/* Navbar styling */
+.navbar {
+    position: fixed ;
+    top: 0 !important;
+      left: 0 !important;
+      width: 100%;
+      background-color: #EAF4F4;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index:1000;
+  }
+  
+  /* Navbar logo */
+  .navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #3D405B; /* Deep charcoal */
+    text-decoration: none;
+  }
+  
+  /* Navbar links */
+  .nav-links {
+    display: flex;
+    justify-content:flex-end;
+    gap: 20px;
+  }
+  
+  .nav-links a {
+    text-decoration: none;
+    font-size: 1rem;
+    color: #738290; /* Soft slate gray */
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background 0.3s ease-in-out;
+  }
+  
+  .nav-links a:hover {
+    background-color: #C2A878; /* Muted gold accent */
+    color: white;
+  }
+  .navbar-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #3D405B; /* Change to your preferred color */
+    cursor: default;
+  }
+  .navbar-links .nav-link {
+    color: #738290; /* Soft gray color */
+    font-size: 1rem;
+  }
+  
+  /* Hover effect for NavLinks */
+  .navbar-links .nav-link:hover {
+    color: #C2A878; /* Muted gold accent on hover */
+  }
+  
+  /* Dropdown items */
+  .navbar-links .dropdown-item:hover {
+    background-color: #D8E2DC; /* Light green on hover */
+ }
