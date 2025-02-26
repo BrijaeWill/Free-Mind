@@ -24,6 +24,9 @@ router.post("/",authMiddleware,async (req,res)=>{
 router.get("/",authMiddleware,async (req,res)=>{
     try{
         const journals = await Journal.find({user:req.user.userId}).sort({createdAt:-1});
+        if(journals.length === 0){
+            return res.json({message: "No journal entries found. Start writing your first entry!"});
+        }
         res.json(journals);
     }catch(error){
         res.status(500).json({message:"Server error",error});
