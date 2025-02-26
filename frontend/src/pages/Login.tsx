@@ -3,11 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { loginUser } from "../api/api";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./login.css";
+import Dashboard from "./Dashboard"; // Import the Dashboard component
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isAuthenticated, setIsAuthenticated] = useState(false); // Track login state
   const navigate = useNavigate();
 
   const handleLogin = async () => {
@@ -16,7 +18,7 @@ const Login: React.FC = () => {
 
       if (response.token) {
         localStorage.setItem("token", response.token);
-        navigate("/journal");
+        setIsAuthenticated(true); // Update state to show Dashboard
       } else {
         setError("Invalid credentials");
       }
@@ -25,7 +27,9 @@ const Login: React.FC = () => {
     }
   };
 
-  return (
+  return isAuthenticated ? ( 
+    <Dashboard /> // Show the Dashboard after successful login
+  ) : (
     <div className="login-container">
       <div className="login-card">
         <h2 className="text-center mb-4">Login</h2>
