@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom"; // Import navigation hook
 import "bootstrap/dist/css/bootstrap.min.css";
 
 // Define a type for journal entries
@@ -11,6 +12,7 @@ function Journal() {
   const [entries, setEntries] = useState<JournalEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState("");
+  const navigate = useNavigate(); // Initialize navigate function
 
   useEffect(() => {
     const fetchJournals = async () => {
@@ -66,8 +68,9 @@ function Journal() {
         <div className="alert alert-info text-center">{message}</div>
       )}
 
+      
       <div className="text-center mt-4">
-        <button className="btn btn-success" onClick={() => console.log("Add new entry logic here")}>
+        <button className="btn btn-success" onClick={() => navigate("/journals")}>
           + Add New Entry
         </button>
       </div>

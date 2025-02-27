@@ -3,13 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { loginUser } from "../api/api";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./login.css";
-import Dashboard from "./Dashboard"; // Import the Dashboard component
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [isAuthenticated, setIsAuthenticated] = useState(false); // Track login state
   const navigate = useNavigate();
 
   const handleLogin = async () => {
@@ -18,7 +16,7 @@ const Login: React.FC = () => {
 
       if (response.token) {
         localStorage.setItem("token", response.token);
-        setIsAuthenticated(true); // Update state to show Dashboard
+        navigate("/dashboard"); // Redirect to journal dashboard
       } else {
         setError("Invalid credentials");
       }
@@ -27,9 +25,7 @@ const Login: React.FC = () => {
     }
   };
 
-  return isAuthenticated ? ( 
-    <Dashboard /> // Show the Dashboard after successful login
-  ) : (
+  return (
     <div className="login-container">
       <div className="login-card">
         <h2 className="text-center mb-4">Login</h2>
@@ -61,20 +57,13 @@ const Login: React.FC = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={handleLogin}
-          >
+          <button type="button" className="btn btn-primary" onClick={handleLogin}>
             Login
           </button>
         </form>
         <p className="mt-3 text-center">
           Don't have an account?{" "}
-          <button
-            className="btn btn-link p-0"
-            onClick={() => navigate("/register")}
-          >
+          <button className="btn btn-link p-0" onClick={() => navigate("/register")}>
             Register
           </button>
         </p>
@@ -84,3 +73,4 @@ const Login: React.FC = () => {
 };
 
 export default Login;
+
