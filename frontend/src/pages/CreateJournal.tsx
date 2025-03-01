@@ -11,7 +11,7 @@ const CreateJournal: React.FC = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("https://free-mind-2.onrender.com/api/users/journals", {
+      const response = await fetch("https://free-mind-2.onrender.com/api/journals", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

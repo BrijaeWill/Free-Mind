@@ -18,7 +18,7 @@ function Journal() {
     const fetchJournals = async () => {
       try {
         const response = await fetch(
-          "https://free-mind-2.onrender.com/api/users/journals",
+          "https://free-mind-2.onrender.com/api/journals",
           {
             method: "GET",
             headers: {
@@ -67,13 +67,6 @@ function Journal() {
       ) : (
         <div className="alert alert-info text-center">{message}</div>
       )}
-
-      
-      <div className="text-center mt-4">
-        <button className="btn btn-success" onClick={() => navigate("/journals")}>
-          + Add New Entry
-        </button>
-      </div>
     </div>
   );
 }

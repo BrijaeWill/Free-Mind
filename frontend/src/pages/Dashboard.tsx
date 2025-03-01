@@ -10,7 +10,7 @@ function Dashboard() {
       
       {/* Add New Entry Button */}
       <div className="text-center mt-4">
-        <button className="btn btn-success" onClick={() => navigate("/journals")}>
+        <button className="btn btn-success" onClick={() => navigate("/create")}>
           + Add New Entry
         </button>
       </div>
