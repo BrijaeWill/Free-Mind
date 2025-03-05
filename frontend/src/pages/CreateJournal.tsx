@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import TextEditor from "../components/TextEditor";
 const CreateJournal: React.FC = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -52,15 +52,7 @@ const CreateJournal: React.FC = () => {
 
         <div className="mb-3">
           <label htmlFor="content" className="form-label">Content</label>
-          <textarea
-            className="form-control"
-            id="content"
-            rows={5}
-            placeholder="Write your thoughts..."
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            required
-          ></textarea>
+          <TextEditor content={content} setContent={setContent} />
         </div>
 
         <button type="submit" className="btn btn-primary">Save Entry</button>
