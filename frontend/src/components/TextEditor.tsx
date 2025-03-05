@@ -1,28 +1,24 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
-import { Heading } from "@tiptap/extension-heading";
 import DOMPurify from "dompurify";
 
-// Define props type
 interface TextEditorProps {
   content: string;
   setContent: (content: string) => void;
-  journalId?: string; // Added journalId to pass it down to the editor component
+  id: string | null; // Use 'id' instead of 'journalId'
 }
 
-const TextEditor: React.FC<TextEditorProps> = ({ content, setContent, journalId }) => {
-  const [autoSaveTimer, setAutoSaveTimer] = useState<number | null>(null); // Explicitly set the type
+const TextEditor: React.FC<TextEditorProps> = ({ content, setContent, id }) => {
+  const [autoSaveTimer, setAutoSaveTimer] = useState<number | null>(null);
 
+  // Start the editor with the passed content
   const editor = useEditor({
     extensions: [
       StarterKit,
       Placeholder.configure({
         placeholder: "Write your thoughts...",
-      }),
-      Heading.configure({
-        levels: [1, 2, 3],
       }),
     ],
     content: content,
@@ -32,20 +28,22 @@ const TextEditor: React.FC<TextEditorProps> = ({ content, setContent, journalId 
       setContent(updatedContent);
 
       if (autoSaveTimer) {
-        clearTimeout(autoSaveTimer); // Clear the previous timer before setting a new one
+        clearTimeout(autoSaveTimer); // Clear previous timer
       }
 
-      const timer = setTimeout(() => {
-        autoSaveContent(updatedContent);
-      }, 2000);
+      if (id) { // Only start autosave if 'id' is available
+        const timer = setTimeout(() => {
+          autoSaveContent(updatedContent, id); // Call autosave function with 'id'
+        }, 2000); // Delay of 2 seconds between autosave
 
-      setAutoSaveTimer(timer); // Set the new timer
+        setAutoSaveTimer(timer); // Set new timer
+      }
     },
   });
 
-  const autoSaveContent = async (content: string) => {
+  const autoSaveContent = async (content: string, id: string) => {
     try {
-      const response = await fetch(`https://free-mind-2.onrender.com/api/journals/${journalId}`, {
+      const response = await fetch(`https://free-mind-2.onrender.com/api/journals/${id}`, {
         method: "PATCH", // Use PATCH for partial update
         headers: {
           "Content-Type": "application/json",
@@ -121,3 +119,4 @@ const TextEditor: React.FC<TextEditorProps> = ({ content, setContent, journalId 
 };
 
 export default TextEditor;
+

@@ -2,15 +2,17 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TextEditor from "../components/TextEditor";
 import DOMPurify from "dompurify";
+
 const CreateJournal: React.FC = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [id, setId] = useState<string | null>(null); // 'id' state for backend compatibility
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     let sanitizedContent = DOMPurify.sanitize(content);
 
     try {
@@ -20,10 +22,12 @@ const CreateJournal: React.FC = () => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        body: JSON.stringify({ title, content:sanitizedContent }),
+        body: JSON.stringify({ title, content: sanitizedContent }),
       });
 
       if (response.ok) {
+        const createdJournal = await response.json(); // Get the created journal's data
+        setId(createdJournal.id); // Set the 'id' after creation
         navigate("/dashboard"); // ✅ Redirect to dashboard after successful submission
       } else {
         setError("Failed to create journal entry. Try again.");
@@ -55,7 +59,7 @@ const CreateJournal: React.FC = () => {
 
         <div className="mb-3">
           <label htmlFor="content" className="form-label">Content</label>
-          <TextEditor content={content} setContent={setContent} />
+          <TextEditor content={content} setContent={setContent} id={id} /> {/* Pass 'id' */}
         </div>
 
         <button type="submit" className="btn btn-primary">Save Entry</button>
