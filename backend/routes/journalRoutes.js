@@ -78,8 +78,9 @@ router.patch("/:id", authMiddleware, async (req, res) => {
       if (!updatedJournal) {
         return res.status(404).json({ message: "Journal not found" });
       }
-  
+      console.log('Auto-save completed');
       res.json(updatedJournal); // Return the updated journal
+      res.status(200).json({message:'Auto-Save completed'});
     } catch (error) {
       res.status(500).json({ message: "Server error", error });
     }
