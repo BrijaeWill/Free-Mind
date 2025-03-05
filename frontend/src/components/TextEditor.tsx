@@ -3,6 +3,7 @@ import { useEditor,EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
 import {Heading} from "@tiptap/extension-heading";
+import DOMPurify from "dompurify";
 //define props type
 interface TextEditorProps{
     content: string;
@@ -22,7 +23,9 @@ const TextEditor: React.FC<TextEditorProps> =({content,setContent}) =>{
         ],
         content: content,
         onUpdate: ({editor}) =>{
-        setContent(editor.getHTML());
+        let updatedContent=editor.getHTML();
+        updatedContent= DOMPurify.sanitize(updatedContent);
+        setContent(updatedContent);
         },
     });
     if (!editor) {

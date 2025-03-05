@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TextEditor from "../components/TextEditor";
+import DOMPurify from "dompurify";
 const CreateJournal: React.FC = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -9,6 +10,8 @@ const CreateJournal: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    let sanitizedContent = DOMPurify.sanitize(content);
 
     try {
       const response = await fetch("https://free-mind-2.onrender.com/api/journals", {
@@ -17,7 +20,7 @@ const CreateJournal: React.FC = () => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        body: JSON.stringify({ title, content }),
+        body: JSON.stringify({ title, content:sanitizedContent }),
       });
 
       if (response.ok) {
