@@ -63,5 +63,28 @@ router.delete("/:id",authMiddleware, async (req,res)=>{
         res.status(500).json({message:"Server error",error});
     }
 });
+// Auto-save Journal Content
+router.patch("/:id", authMiddleware, async (req, res) => {
+    try {
+      const { content } = req.body;
+  
+      // Find the journal by ID and user, then update only the content
+      const updatedJournal = await Journal.findOneAndUpdate(
+        { _id: req.params.id, user: req.user.userId },
+        { content }, // Only updating the content, not the title
+        { new: true } // Return the updated journal
+      );
+  
+      if (!updatedJournal) {
+        return res.status(404).json({ message: "Journal not found" });
+      }
+  
+      res.json(updatedJournal); // Return the updated journal
+    } catch (error) {
+      res.status(500).json({ message: "Server error", error });
+    }
+  });
+  
+
 
 export default router;
