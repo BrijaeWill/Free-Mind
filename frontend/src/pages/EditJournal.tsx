@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import TextEditor from "../components/TextEditor";
 
 const EditJournal: React.FC = () => {
   const { id } = useParams(); // Get the journal ID from the URL
+
   const navigate = useNavigate();
 
   const [title, setTitle] = useState("");
@@ -87,15 +89,7 @@ const EditJournal: React.FC = () => {
 
         <div className="mb-3">
           <label htmlFor="content" className="form-label">Content</label>
-          <textarea
-            className="form-control"
-            id="content"
-            rows={5}
-            placeholder="Update your journal content..."
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            required
-          ></textarea>
+          <TextEditor content={content} setContent={setContent} id={id ?? null}/> 
         </div>
 
         <button type="submit" className="btn btn-primary">Save Changes</button>

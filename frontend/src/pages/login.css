@@ -67,3 +67,59 @@ body {
 .btn-link:hover {
   text-decoration: underline;
 }
+/* css for journals */
+/* Row layout to display in a row with flexible columns */
+.row {
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap to the next line */
+  gap: 1rem; /* Add space between cards */
+}
+
+/* Make each card a fixed width in the row */
+.card-container {
+  flex: 1 1 300px; /* The cards will take up at least 300px and can grow as needed */
+  max-width: 300px; /* Ensure cards do not exceed 300px */
+}
+
+/* Styling for individual cards */
+.card {
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  background-color: #fff; /* White background */
+  margin-bottom: 1rem;
+}
+
+/* Card content */
+.card-body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column; /* Stack content vertically */
+  justify-content: space-between;
+  height: 100%;
+}
+
+/* Dropdown button */
+.dropdown-toggle {
+  border: none;
+  background: none;
+  padding: 0.3rem 0.6rem;
+  font-size: 1.25rem;
+  color: #000;
+  cursor: pointer;
+}
+
+
+/* Footer styling */
+.card-footer {
+  background-color: #f8f9fa;
+  border-top: 1px solid #ddd;
+  padding: 0.75rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Ensure no unwanted overflow or scrollbars */
+.container {
+  overflow: hidden;
+}

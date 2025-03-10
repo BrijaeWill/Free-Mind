@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { BsThreeDots } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./login.css";
 
 interface JournalEntry {
   _id: string;
@@ -14,7 +15,8 @@ function Journal() {
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
-  // Fetch the journal entries
+
+  // Fetch journal entries
   useEffect(() => {
     const fetchJournals = async () => {
       try {
@@ -55,16 +57,16 @@ function Journal() {
           },
         }
       );
-      const data = await response.json();
       if (response.ok) {
-        setEntries(entries.filter((entry) => entry._id !== id)); // Remove the deleted journal from state
+        setEntries(entries.filter((entry) => entry._id !== id));
       } else {
-        alert(data.message || "Error deleting journal.");
+        alert("Error deleting journal.");
       }
     } catch (error) {
       alert("Failed to delete the journal.");
     }
   };
+
   const handleEdit = (id: string) => {
     navigate(`/edit/${id}`);
   };
@@ -76,16 +78,23 @@ function Journal() {
       {loading ? (
         <p className="text-center">Loading...</p>
       ) : entries.length > 0 ? (
-        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <div className="row g-4">
           {entries.map((entry) => (
-            <div className="col" key={entry._id}>
+            <div className="card-container col" key={entry._id}>
               <div className="card h-100 shadow-sm">
                 <div className="card-body">
                   <h5 className="card-title">{entry.title}</h5>
+                  <hr />
                   <p className="card-text">{entry.content}</p>
+                </div>
+
+                {/* Footer with Dropdown */}
+                <div className="card-footer d-flex justify-content-between align-items-center">
+                  <small className="text-muted">Last updated just now</small>
+
                   <div className="dropdown">
                     <button
-                      className="btn btn-secondary dropdown-toggle"
+                      className="btn dropdown-toggle no-border"
                       type="button"
                       id={`dropdownMenuButton-${entry._id}`}
                       data-bs-toggle="dropdown"
@@ -97,21 +106,18 @@ function Journal() {
                       className="dropdown-menu"
                       aria-labelledby={`dropdownMenuButton-${entry._id}`}
                     >
-                      {/* Edit option */}
                       <li>
                         <button
                           className="dropdown-item"
-                          onClick={() => handleEdit(entry._id)} // Trigger edit (navigate to the edit page)
+                          onClick={() => handleEdit(entry._id)}
                         >
                           Edit
                         </button>
                       </li>
-
-                      {/* Delete option */}
                       <li>
                         <button
                           className="dropdown-item text-danger"
-                          onClick={() => handleDelete(entry._id)} // Trigger delete
+                          onClick={() => handleDelete(entry._id)}
                         >
                           Delete
                         </button>
@@ -119,9 +125,7 @@ function Journal() {
                     </ul>
                   </div>
                 </div>
-                <div className="card-footer text-muted text-end">
-                  <small>Last updated just now</small>
-                </div>
+                {/* End Footer */}
               </div>
             </div>
           ))}
