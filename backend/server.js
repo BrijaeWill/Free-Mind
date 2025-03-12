@@ -12,7 +12,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: ["https://free-mind-2.onrender.com", "http://localhost:5173","http://localhost:5174"],
+    origin: ["https://free-mind-2.onrender.com","https://free-mind-0.onrender.com"],
     credentials: true, // Include if you're using cookies or authentication
   })
 );
