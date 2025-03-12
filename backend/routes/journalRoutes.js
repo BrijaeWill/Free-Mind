@@ -33,6 +33,21 @@ router.get("/",authMiddleware,async (req,res)=>{
     }
 
 });
+// Route to get a specific journal by ID
+router.get("/:id", authMiddleware, async (req, res) => {
+    try {
+      const journal = await Journal.findOne({ _id: req.params.id, user: req.user.userId });
+  
+      if (!journal) {
+        return res.status(404).json({ message: "Journal not found" });
+      }
+  
+      res.json(journal); // Return the specific journal
+    } catch (error) {
+      res.status(500).json({ message: "Server error", error });
+    }
+  });
+  
 
 //update Journals
 router.put("/:id",authMiddleware, async (req,res)=>{
@@ -79,8 +94,7 @@ router.patch("/:id", authMiddleware, async (req, res) => {
         return res.status(404).json({ message: "Journal not found" });
       }
       console.log('Auto-save completed');
-      res.json(updatedJournal); // Return the updated journal
-      res.status(200).json({message:'Auto-Save completed'});
+      res.status(200).json(updatedJournal); // Return the updated journal
     } catch (error) {
       res.status(500).json({ message: "Server error", error });
     }

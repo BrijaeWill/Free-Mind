@@ -13,6 +13,7 @@ app.use(express.json());
 app.use(
   cors({
     origin: ["https://free-mind-2.onrender.com", "http://localhost:5173"],
+    methods: ['GET', 'POST', 'PATCH', 'DELETE'],
     credentials: true, // Include if you're using cookies or authentication
   })
 );
