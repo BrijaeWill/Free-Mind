@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { registerUser } from "../api/api.ts";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import './register.css'
+import './Register.css'
 
 
 
