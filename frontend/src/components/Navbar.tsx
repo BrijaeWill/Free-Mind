@@ -39,7 +39,7 @@ const NavigationBar = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto navbar-links">
-          {location.pathname === "/" && (
+          {location.pathname !== "/" && (
               <>
                 <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
                 <NavDropdown

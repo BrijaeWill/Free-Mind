@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import TextEditor from "../components/TextEditor";
 
 const EditJournal: React.FC = () => {
-  const { id } = useParams<{id:string}>(); // Get the journal ID from the URL
+  const { id } = useParams<{ id: string }>(); // Use 'id' as the URL parameter
   const navigate = useNavigate();
 
   const [title, setTitle] = useState("");
@@ -33,9 +33,9 @@ const EditJournal: React.FC = () => {
 
         if (response.ok) {
           const data = await response.json();
-          console.log("Fetched journal data:", data); 
-          setTitle(data.title);
-          setContent(data.content);
+          console.log("Fetched journal data:", data);
+          setTitle(data.title); // Keep title unchanged
+          setContent(data.content); // Populate content
           setLoading(false);
         } else {
           setError("Journal not found.");
@@ -63,7 +63,7 @@ const EditJournal: React.FC = () => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-          body: JSON.stringify({ content }), // Only send title and content
+          body: JSON.stringify({ content }), // Only send content (not title)
         }
       );
 
@@ -96,15 +96,16 @@ const EditJournal: React.FC = () => {
             className="form-control"
             id="title"
             placeholder="Enter journal title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            value={title} // Title is not editable
+            onChange={(e) => setTitle(e.target.value)} // If you wanted it editable
+            disabled // Disabled so the title stays unchanged
             required
           />
         </div>
 
         <div className="mb-3">
           <label htmlFor="content" className="form-label">Content</label>
-          <TextEditor content={content} setContent={setContent} id={id ?? null} />
+          <TextEditor content={content} setContent={setContent} id={id ?? null} /> 
         </div>
 
         <button type="submit" className="btn btn-primary">Save Changes</button>
@@ -114,4 +115,3 @@ const EditJournal: React.FC = () => {
 };
 
 export default EditJournal;
-

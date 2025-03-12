@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { BsThreeDots } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import DOMPurify from "dompurify";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./login.css";
 
@@ -44,6 +45,11 @@ function Journal() {
 
     fetchJournals();
   }, []);
+  const cleanContent = (content: string) => {
+    // Allowed HTML tags configuration
+    const allowedTags = ["b", "i", "em", "strong", "h1", "h2", "h3", "ul", "ol", "li", "p"];
+    return DOMPurify.sanitize(content, { ALLOWED_TAGS: allowedTags });
+  };
 
   // Delete a journal entry
   const handleDelete = async (id: string) => {
@@ -85,7 +91,7 @@ function Journal() {
                 <div className="card-body">
                   <h5 className="card-title">{entry.title}</h5>
                   <hr />
-                  <p className="card-text">{entry.content}</p>
+                  <p dangerouslySetInnerHTML={{ __html: cleanContent(entry.content) }} />
                 </div>
 
                 {/* Footer with Dropdown */}
