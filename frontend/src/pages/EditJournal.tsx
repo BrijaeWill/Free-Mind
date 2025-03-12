@@ -3,22 +3,28 @@ import { useNavigate, useParams } from "react-router-dom";
 import TextEditor from "../components/TextEditor";
 
 const EditJournal: React.FC = () => {
-  const { id } = useParams(); // Get the journal ID from the URL
-
+  const { id } = useParams<{id:string}>(); // Get the journal ID from the URL
   const navigate = useNavigate();
 
   const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState<string>("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
 
   // Fetch the journal entry when the component mounts
   useEffect(() => {
+    console.log("Journal ID from URL:", id);
+    if (!id) {
+      navigate("/dashboard"); // Redirect if ID is not found
+      return;
+    }
+
     const fetchJournal = async () => {
       try {
         const response = await fetch(
-          `https://free-mind-2.onrender.com/api/journals/${id}`,  // Correct GET request URL
+          `https://free-mind-2.onrender.com/api/journals/${id}`, // Correct GET request URL
           {
-            method:'GET',
+            method: 'GET',
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
@@ -27,18 +33,22 @@ const EditJournal: React.FC = () => {
 
         if (response.ok) {
           const data = await response.json();
-          setTitle(data.title);  // Set title and content if successful
+          console.log("Fetched journal data:", data); 
+          setTitle(data.title);
           setContent(data.content);
+          setLoading(false);
         } else {
           setError("Journal not found.");
+          setLoading(false);
         }
       } catch (err) {
         setError("Failed to fetch the journal.");
+        setLoading(false);
       }
     };
 
     fetchJournal();
-  }, [id]);  // Re-fetch journal whenever the ID changes
+  }, [id, navigate]);
 
   // Handle the form submission (update journal)
   const handleSubmit = async (e: React.FormEvent) => {
@@ -46,26 +56,31 @@ const EditJournal: React.FC = () => {
 
     try {
       const response = await fetch(
-        `https://free-mind-2.onrender.com/api/journals/${id}`,  // Correct PUT request URL
+        `https://free-mind-2.onrender.com/api/journals/${id}`, // Use PATCH here
         {
-          method: "PUT",
+          method: "PATCH",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-          body: JSON.stringify({ title, content }),  // Send updated content and title
+          body: JSON.stringify({ content }), // Only send title and content
         }
       );
 
       if (response.ok) {
-        navigate("/dashboard"); // Redirect to the dashboard after successful update
+        navigate("/dashboard"); // Redirect to dashboard after successful update
       } else {
         setError("Failed to update the journal.");
       }
     } catch (error) {
       setError("Something went wrong. Please try again.");
+      console.error(error);
     }
   };
+
+  if (loading) {
+    return <p>Loading...</p>; // Show loading until data is fetched
+  }
 
   return (
     <div className="container mt-4">
@@ -89,7 +104,7 @@ const EditJournal: React.FC = () => {
 
         <div className="mb-3">
           <label htmlFor="content" className="form-label">Content</label>
-          <TextEditor content={content} setContent={setContent} id={id ?? null}/> 
+          <TextEditor content={content} setContent={setContent} id={id ?? null} />
         </div>
 
         <button type="submit" className="btn btn-primary">Save Changes</button>
@@ -99,3 +114,4 @@ const EditJournal: React.FC = () => {
 };
 
 export default EditJournal;
+
